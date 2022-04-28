@@ -1,0 +1,34 @@
+<script> 
+//This is the function that will add the id variable used to attach the auto complete functionality
+  let attachButtonFunction = function(){
+    let endBtn = document.querySelector('[data-test="primary-button"]')
+    let count = 5;
+    
+    endBtn.textContent = `Returning to homepage in ${count}`
+    
+    let countDown = setInterval(()=>{
+      count --;
+      if(count === 0){
+        window.location.href = window.location.origin;
+        endBtn.textContent = `Bye bye!`
+        clearInterval(countDown);
+      } else {
+        endBtn.textContent = `Returning to homepage in ${count}`
+      }
+    }, 1000)
+    countDown();
+  };
+//-----------------------------------------------------------------------------------------------------  
+//This will attach the auto complete functionality to the EoC button when a user enters the EoC page
+  
+  let lastUrl = location.href;
+  new MutationObserver(() => {
+    let url = location.href
+    if(url !== lastUrl){
+      lastUrl = url;
+      if(window.location.href.includes('/summary')){
+      	attachButtonFunction();
+      }
+   } 
+  }).observe(document, {subtree: true, childList: true});
+</script>
