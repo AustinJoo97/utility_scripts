@@ -35,3 +35,29 @@ let checkIfNodeAvailable = () => {
 }
 
 checkIfNodeAvailable();
+
+
+//Alternative
+let alternateMutationObserver = () => {
+    let config = { 
+        attributes: true, 
+        childList: true, 
+        subtree: true 
+    };
+    
+    let callback = () => {
+        console.log('console logging')
+    };
+    
+    
+    new MutationObserver(() => {
+        let someElement = document.querySelector('someElement');
+    
+        if(someElement !== null){
+            callback()
+        } 
+    }).observe(document, {subtree: true, childList: true});
+    //}).observe(document, config)
+}
+
+alternateMutationObserver();
